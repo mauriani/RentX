@@ -11,10 +11,12 @@ import {
   Archivo_500Medium,
   Archivo_600SemiBold,
 } from "@expo-google-fonts/archivo";
+
 import { Home } from "./src/screens/Home";
+import { CardDetails } from "./src/screens/CardDetails";
+import { Scheduling } from "./src/screens/Scheduling";
 
 import theme from "./src/styles/theme";
-import { CardDetails } from "./src/screens/CardDetails";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -30,7 +32,7 @@ export default function App() {
   } else {
     return (
       <ThemeProvider theme={theme}>
-        <CardDetails />
+        <Scheduling />
       </ThemeProvider>
     );
   }
