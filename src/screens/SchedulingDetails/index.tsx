@@ -67,12 +67,6 @@ export function SchedulingDetails() {
           <Accessory name={"2 pessoas"} icon={peopleSvg} />
         </Acessories>
 
-        <About>
-          Este é automóvel desportivo. Surgiu do lendário touro de lide
-          indultado na praça Real Maestranza de Sevilla. É um belíssimo carro
-          para quem gosta de acelerar.
-        </About>
-
         <Footer>
           <Button title={"Escolher período do aluguel"} color="green" />
         </Footer>
