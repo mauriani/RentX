@@ -1,4 +1,6 @@
 import React from "react";
+import { useTheme } from "styled-components";
+import Feather from "react-native-vector-icons/Feather";
 import { Accessory } from "../../components/Accessory";
 
 import { BackButton } from "../../components/BackButton";
@@ -23,13 +25,24 @@ import {
   Rent,
   Period,
   Price,
-  About,
   Acessories,
   Footer,
+  RentalPeriod,
+  CalendarIcon,
+  DateInfo,
+  DateTitle,
+  DateValue,
+  RentalPrice,
+  RentalPriceLabel,
+  RentalPriceDetails,
+  RentalPriceQuota,
+  RentalPriceTotal,
 } from "./styles";
 import { Button } from "../../components/Button";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export function SchedulingDetails() {
+  const theme = useTheme();
   return (
     <Container>
       <Header>
@@ -67,10 +80,45 @@ export function SchedulingDetails() {
           <Accessory name={"2 pessoas"} icon={peopleSvg} />
         </Acessories>
 
-        <Footer>
-          <Button title={"Escolher período do aluguel"} color="green" />
-        </Footer>
+        <RentalPeriod>
+          <CalendarIcon>
+            <Feather
+              name="calendar"
+              size={RFValue(24)}
+              color={theme.colors.shape}
+            />
+          </CalendarIcon>
+
+          <DateInfo>
+            <DateTitle>DE</DateTitle>
+            <DateValue>18/082021</DateValue>
+          </DateInfo>
+
+          <Feather
+            name="chevron-right"
+            size={RFValue(24)}
+            color={theme.colors.text}
+          />
+
+          <DateInfo>
+            <DateTitle>ATÉ</DateTitle>
+            <DateValue>18/082021</DateValue>
+          </DateInfo>
+        </RentalPeriod>
+
+        <RentalPrice>
+          <RentalPriceLabel>TOTAL</RentalPriceLabel>
+
+          <RentalPriceDetails>
+            <RentalPriceQuota>R$ 580 x3 diárias</RentalPriceQuota>
+            <RentalPriceTotal>R$ 2.900</RentalPriceTotal>
+          </RentalPriceDetails>
+        </RentalPrice>
       </Content>
+
+      <Footer>
+        <Button title={"Confirmar"} color={theme.colors.success} />
+      </Footer>
     </Container>
   );
 }
