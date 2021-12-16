@@ -1,5 +1,5 @@
 import React from "react";
-
+import { RectButtonProps } from "react-native-gesture-handler";
 import GasolineSvg from "../../assets/gasoline.svg";
 
 import {
@@ -25,13 +25,13 @@ interface CardData {
   thumbnail: string;
 }
 
-interface Props {
+interface Props extends RectButtonProps {
   data: CardData;
 }
 
-export function Car({ data }: Props) {
+export function Car({ data, ...rest }: Props) {
   return (
-    <Container>
+    <Container {...rest}>
       <Details>
         <Brand>{data.brand}</Brand>
         <Name>{data.name}</Name>

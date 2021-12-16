@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { StatusBar } from "react-native";
 
@@ -13,18 +14,24 @@ import {
 } from "./styles";
 import { Car } from "../../components/Car";
 
-const CardData = {
-  brand: "Audi ",
-  name: "RS 5 Coupé",
-  rent: {
-    period: "Ao dia",
-    price: 120,
-  },
-  thumbnail:
-    "https://png.monster/wp-content/uploads/2020/11/2018-audi-rs5-4wd-coupe-angular-front-5039562b.png",
-};
-
 export function Home() {
+  const navigation = useNavigation();
+
+  const CardData = {
+    brand: "Audi ",
+    name: "RS 5 Coupé",
+    rent: {
+      period: "Ao dia",
+      price: 120,
+    },
+    thumbnail:
+      "https://png.monster/wp-content/uploads/2020/11/2018-audi-rs5-4wd-coupe-angular-front-5039562b.png",
+  };
+
+  function handleCarDetails() {
+    navigation.navigate("CardDetails");
+  }
+
   return (
     <Container>
       <StatusBar
@@ -43,7 +50,9 @@ export function Home() {
       <CardList
         data={[1, 2, 3, 4, 5, 6, 7, 8]}
         keyExtractor={(item) => String(item)}
-        renderItem={({ item }) => <Car data={CardData} />}
+        renderItem={({ item }) => (
+          <Car data={CardData} onPress={handleCarDetails} />
+        )}
       />
     </Container>
   );
