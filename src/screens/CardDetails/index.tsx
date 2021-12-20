@@ -34,7 +34,7 @@ export function CardDetails() {
   const navigation = useNavigation();
 
   function handleConfirmRental() {
-    navigation.navigate("CardDetails");
+    navigation.navigate("Scheduling");
   }
 
   return (

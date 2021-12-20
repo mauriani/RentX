@@ -8,7 +8,7 @@ import { ConfirmButton } from "../../components/ConfirmButton";
 import { Container, Content, Title, Message, Footer } from "./styles";
 
 export function SchedulingComplete() {
-  const { width } = useWindowDimensions();
+ const { width } = useWindowDimensions(); 
   return (
     <Container>
       <StatusBar
