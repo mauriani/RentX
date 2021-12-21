@@ -25,7 +25,7 @@ export function Scheduling() {
   const theme = useTheme();
   const navigation = useNavigation();
 
-  function handleCarDetails() {
+  function handleConfirm() {
     navigation.navigate("SchedulingDetails");
   }
   return (
@@ -64,7 +64,7 @@ export function Scheduling() {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" onPress={handleCarDetails} />
+        <Button title="Confirmar" onPress={handleConfirm} />
       </Footer>
     </Container>
   );

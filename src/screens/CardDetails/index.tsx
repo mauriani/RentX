@@ -81,7 +81,10 @@ export function CardDetails() {
         </About>
 
         <Footer>
-          <Button title={"Confirmar"} onPress={handleConfirmRental} />
+          <Button
+            title={"Escolher período do aluguel"}
+            onPress={handleConfirmRental}
+          />
         </Footer>
       </Content>
     </Container>

@@ -125,7 +125,7 @@ export function SchedulingDetails() {
 
       <Footer>
         <Button
-          title={"Confirmar"}
+          title={"Alugar agora"}
           color={theme.colors.success}
           onPress={handleSchedulingComplete}
         />
