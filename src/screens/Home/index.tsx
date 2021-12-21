@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { StatusBar } from "react-native";
@@ -12,25 +12,40 @@ import {
   TotalCars,
   CardList,
 } from "./styles";
+
+import { CarDTO } from "../../dtos/CarDTO";
+
 import { Car } from "../../components/Car";
+import { Load } from "../../components/Load";
+
+import api from "../../services/api";
 
 export function Home() {
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(true);
 
-  const CardData = {
-    brand: "Audi ",
-    name: "RS 5 Coupé",
-    rent: {
-      period: "Ao dia",
-      price: 120,
-    },
-    thumbnail:
-      "https://png.monster/wp-content/uploads/2020/11/2018-audi-rs5-4wd-coupe-angular-front-5039562b.png",
-  };
+  const [cars, setCars] = useState<CarDTO[]>([]);
 
-  function handleCarDetails() {
-    navigation.navigate("CardDetails");
+  function handleCarDetails(car: CarDTO) {
+    navigation.navigate("CardDetails", {
+      car,
+    });
   }
+
+  useEffect(() => {
+    async function fetchCars() {
+      try {
+        const response = await api.get("/cars");
+        setCars(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCars();
+  }, []);
 
   return (
     <Container>
@@ -47,13 +62,17 @@ export function Home() {
         </HeaderContent>
       </Header>
 
-      <CardList
-        data={[1, 2, 3, 4, 5, 6, 7, 8]}
-        keyExtractor={(item) => String(item)}
-        renderItem={({ item }) => (
-          <Car data={CardData} onPress={handleCarDetails} />
-        )}
-      />
+      {loading ? (
+        <Load />
+      ) : (
+        <CardList
+          data={cars}
+          keyExtractor={(item: CarDTO) => item.id}
+          renderItem={({ item }: { item: CarDTO }) => (
+            <Car data={item} onPress={() => handleCarDetails(item)} />
+          )}
+        />
+      )}
     </Container>
   );
 }
