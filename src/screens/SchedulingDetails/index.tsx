@@ -54,14 +54,16 @@ interface RentalPeriod {
 }
 
 export function SchedulingDetails() {
+  const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>(
+    {} as RentalPeriod
+  );
+
   const theme = useTheme();
   const navigation = useNavigation();
   const route = useRoute();
 
   const { car, dates } = route.params as Params;
-  const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>(
-    {} as RentalPeriod
-  );
+  const rentTotal = Number(Object.keys(dates).length * car.rent.price);
 
   function handleSchedulingComplete() {
     navigation.navigate("SchedulingComplete");
@@ -140,8 +142,10 @@ export function SchedulingDetails() {
           <RentalPriceLabel>TOTAL</RentalPriceLabel>
 
           <RentalPriceDetails>
-            <RentalPriceQuota>R$ 580 x3 diárias</RentalPriceQuota>
-            <RentalPriceTotal>R$ 2.900</RentalPriceTotal>
+            <RentalPriceQuota>{`R$ ${car.rent.price} x${
+              Object.keys(dates).length
+            } diárias`}</RentalPriceQuota>
+            <RentalPriceTotal>R$ {rentTotal}</RentalPriceTotal>
           </RentalPriceDetails>
         </RentalPrice>
       </Content>
