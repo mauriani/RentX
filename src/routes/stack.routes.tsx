@@ -8,13 +8,15 @@ import { Scheduling } from "../screens/Scheduling";
 import { SchedulingDetails } from "../screens/SchedulingDetails";
 import { SchedulingComplete } from "../screens/SchedulingComplete";
 
+import { MarkedDatesProps } from "../components/Calendar";
+
 import { CarDTO } from "../dtos/CarDTO";
 
 export type RootStackParamList = {
   Home: undefined;
   CardDetails: { car: CarDTO };
-  Scheduling: undefined;
-  SchedulingDetails: undefined;
+  Scheduling: { car: CarDTO };
+  SchedulingDetails: { car: CarDTO; dates: MarkedDatesProps };
   SchedulingComplete: undefined;
 };
 
