@@ -62,7 +62,7 @@ export function Scheduling() {
     } else {
       navigation.navigate("SchedulingDetails", {
         car,
-        dates: markedDates,
+        dates: Object.keys(markedDates),
       });
     }
   }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Alert } from "react-native";
 import { useTheme } from "styled-components";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { format } from "date-fns";
@@ -40,12 +41,12 @@ import {
 
 import { Button } from "../../components/Button";
 import { CarDTO } from "../../dtos/CarDTO";
-import { MarkedDatesProps } from "../../components/Calendar";
 import { getPlatformDate } from "../../utils/getPlatformDate";
+import api from "../../services/api";
 
 interface Params {
   car: CarDTO;
-  dates: MarkedDatesProps;
+  dates: string[];
 }
 
 interface RentalPeriod {
@@ -65,8 +66,43 @@ export function SchedulingDetails() {
   const { car, dates } = route.params as Params;
   const rentTotal = Number(Object.keys(dates).length * car.rent.price);
 
-  function handleSchedulingComplete() {
-    navigation.navigate("SchedulingComplete");
+  async function handleConfirmRental() {
+    try {
+      const schedulesByCar = await api.get(`schedules_bycars/${car.id}`);
+
+      const unavailable_dates = [
+        ...schedulesByCar.data.unavailable_dates,
+        ...dates,
+      ];
+
+      await api.post("schedules_byuser", {
+        user_id: 1,
+        car,
+        startDate: format(getPlatformDate(new Date(dates[0])), "dd/MM/yyyy"),
+        endDate: format(
+          getPlatformDate(new Date(dates[dates.length - 1])),
+          "dd/MM/yyyy"
+        ),
+      });
+
+      api
+        .put(`schedules_bycars/${car.id}`, {
+          id: car.id,
+          unavailable_dates: unavailable_dates,
+        })
+        .then((response) => {
+          navigation.navigate("SchedulingComplete");
+        })
+        .catch((err) =>
+          Alert.alert("Não foi possível confirmar o agendamento.")
+        );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleBack() {
+    navigation.goBack();
   }
 
   useEffect(() => {
@@ -82,7 +118,7 @@ export function SchedulingDetails() {
   return (
     <Container>
       <Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={handleBack} />
       </Header>
 
       <CardImages>
@@ -154,7 +190,7 @@ export function SchedulingDetails() {
         <Button
           title={"Alugar agora"}
           color={theme.colors.success}
-          onPress={handleSchedulingComplete}
+          onPress={handleConfirmRental}
         />
       </Footer>
     </Container>
