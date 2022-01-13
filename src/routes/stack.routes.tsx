@@ -32,7 +32,13 @@ export function StackRoutes() {
       }}
       initialRouteName="Splash"
     >
-      <Screen name="Splash" component={Splash} />
+      <Screen
+        name="Splash"
+        component={Splash}
+        options={{
+          gestureEnabled: false, // usuário do ios não volta para a tela anterior
+        }}
+      />
       <Screen name="Home" component={Home} />
       <Screen name="CardDetails" component={CardDetails} />
       <Screen name="Scheduling" component={Scheduling} />

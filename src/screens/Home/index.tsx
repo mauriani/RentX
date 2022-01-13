@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StatusBar, StyleSheet } from "react-native";
+import { StatusBar, StyleSheet, BackHandler } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "styled-components";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -12,6 +12,7 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   useAnimatedGestureHandler,
+  withSpring,
 } from "react-native-reanimated";
 
 const ButtonAnimated = Animated.createAnimatedComponent(RectButton);
@@ -19,7 +20,7 @@ const ButtonAnimated = Animated.createAnimatedComponent(RectButton);
 import Logo from "../../assets/logo.svg";
 import { CarDTO } from "../../dtos/CarDTO";
 import { Car } from "../../components/Car";
-import { Load } from "../../components/Load";
+import { LoadAnimation } from "../../components/LoadAnimation";
 import api from "../../services/api";
 
 import {
@@ -28,7 +29,6 @@ import {
   HeaderContent,
   TotalCars,
   CardList,
-  MyCarsButton,
 } from "./styles";
 
 export function Home() {
@@ -50,15 +50,22 @@ export function Home() {
   // visualiza para onde o usuário está arrastando o meu botão
   const onGestureEvent = useAnimatedGestureHandler({
     // quando o usuário pressiona o elemento e começa a arrastar
-    onStart() {},
+    onStart(_, context: any) {
+      // pega a posição do meu elemento
+      context.positionX = positionX.value;
+      context.positionY = positionY.value;
+    },
     // enquanto o usuário está arrastando meu elemento pela tela
-    onActive(event) {
-      positionX.value = event.translationX;
-      positionY.value = event.translationY;
+    onActive(event, context: any) {
+      positionX.value = context.positionX + event.translationX;
+      positionY.value = context.positionY + event.translationY;
     },
 
     // quando o usuário terminou e soltou
-    onEnd() {},
+    onEnd() {
+      positionX.value = withSpring(0);
+      positionY.value = withSpring(0);
+    },
   });
 
   const [loading, setLoading] = useState(true);
@@ -90,6 +97,13 @@ export function Home() {
     fetchCars();
   }, []);
 
+  // não permite que possamos voltar para a tela de splash (Funciona apenas no android)
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", () => {
+      return true;
+    });
+  }, []);
+
   return (
     <Container>
       <StatusBar
@@ -101,19 +115,21 @@ export function Home() {
         <HeaderContent>
           <Logo width={RFValue(108)} height={RFValue(12)} />
 
-          <TotalCars>Total de {cars.length} carros</TotalCars>
+          {!loading ? (
+            <TotalCars>Total de {cars.length} carros</TotalCars>
+          ) : null}
         </HeaderContent>
       </Header>
 
       {loading ? (
-        <Load />
+        <LoadAnimation />
       ) : (
         <CardList
           data={cars}
-          keyExtractor={(item: CarDTO) => item.id}
           renderItem={({ item }: { item: CarDTO }) => (
             <Car data={item} onPress={() => handleCarDetails(item)} />
           )}
+          keyExtractor={(item: CarDTO) => item.id}
         />
       )}
 
