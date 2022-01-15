@@ -12,7 +12,7 @@ Esse projeto foi desenvolvido durante o curso de react native ofertado pela rock
 
 - Typescript
 - React native
-- Animação com a biblioteca do Animated
+- Animações com a biblioteca
 - Animação com biblioteca do lottie
 
 ## Executando Projeto
