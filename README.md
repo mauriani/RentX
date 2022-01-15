@@ -1,5 +1,9 @@
 # RentX
 
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/32397288/149638543-158d1b72-e7ac-4996-9403-c84386212484.PNG" width="300"> | 
+</div>
+
 ## 🚀 Sobre o projeto
 
 Esse projeto foi desenvolvido durante o curso de react native ofertado pela rocktseat. O aplicativo possibilita que o usuário faça sua reserva de carro.
