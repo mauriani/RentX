@@ -14,6 +14,7 @@ Esse projeto foi desenvolvido durante o curso de react native ofertado pela rock
 - Expo
 - Animações com a biblioteca do react-native-reanimated
 - Animação com biblioteca do lottie
+- Requisições usando JsonServer
 
 ## Executando Projeto
 
