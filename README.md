@@ -11,8 +11,8 @@ Esse projeto foi desenvolvido durante o curso de react native ofertado pela rock
 ## 🖥️ Tecnologias usadadas
 
 - Typescript
-- React native
-- Animações com a biblioteca
+- Expo
+- Animações com a biblioteca do react-native-reanimated
 - Animação com biblioteca do lottie
 
 ## Executando Projeto
