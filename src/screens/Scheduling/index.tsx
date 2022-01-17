@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { format } from "date-fns";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { StatusBar } from "react-native";
+import { useTheme } from "styled-components";
 
 import { getPlatformDate } from "../../utils/getPlatformDate";
-import { useTheme } from "styled-components";
 import { BackButton } from "../../components/BackButton";
 import { Button } from "../../components/Button";
 import { CarDTO } from "../../dtos/CarDTO";
