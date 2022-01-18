@@ -27,9 +27,11 @@ export function Input({ iconName, value, ...rest }: Props) {
     setIsFilled(!!value);
   }
 
+  // Um component pode ser recalculado de vários motivos
+
   return (
-    <Container isFocused={isFocused}>
-      <IconContainer>
+    <Container>
+      <IconContainer isFocused={isFocused}>
         <Feather
           name={iconName}
           size={24}
@@ -44,6 +46,7 @@ export function Input({ iconName, value, ...rest }: Props) {
       <InputText
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
+        isFocused={isFocused}
         {...rest}
       />
     </Container>
