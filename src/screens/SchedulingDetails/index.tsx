@@ -93,7 +93,11 @@ export function SchedulingDetails() {
           unavailable_dates: unavailable_dates,
         })
         .then((response) => {
-          navigation.navigate("SchedulingComplete");
+          navigation.navigate("Confirmation", {
+            title: "Conta criada!",
+            message: `Agora você só precisa ir\naté a concessionária da RENTX\npegar oo seu automóvel`,
+            nextScreenRoute: "Home",
+          });
         })
         .catch((err) => {
           Alert.alert("Não foi possível confirmar o agendamento.");

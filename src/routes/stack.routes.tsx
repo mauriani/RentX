@@ -6,7 +6,7 @@ import { Home } from "../screens/Home";
 import { CardDetails } from "../screens/CardDetails";
 import { Scheduling } from "../screens/Scheduling";
 import { SchedulingDetails } from "../screens/SchedulingDetails";
-import { SchedulingComplete } from "../screens/SchedulingComplete";
+import { Confirmation } from "../screens/Confirmation";
 import { MyCars } from "../screens/MyCars";
 import { Splash } from "../screens/Splash";
 import { SignIn } from "../screens/SignIn";
@@ -15,17 +15,19 @@ import { SignUpSecondStep } from "../screens/SignUp/SignUpSecondStep";
 
 import { CarDTO } from "../dtos/CarDTO";
 
+// parametros que minha rota recebe
+
 export type RootStackParamList = {
   Home: undefined;
   CardDetails: { car: CarDTO };
   Scheduling: { car: CarDTO };
   SchedulingDetails: { car: CarDTO; dates: Object[] };
-  SchedulingComplete: undefined;
+  Confirmation: { title: string; message: string; nextScreenRoute: string };
   MyCars: undefined;
   Splash: undefined;
   SignIn: undefined;
   SignUpFirstStep: undefined;
-  SignUpSecondStep: undefined;
+  SignUpSecondStep: { user: {} };
 };
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
@@ -50,7 +52,7 @@ export function StackRoutes() {
       <Screen name="CardDetails" component={CardDetails} />
       <Screen name="Scheduling" component={Scheduling} />
       <Screen name="SchedulingDetails" component={SchedulingDetails} />
-      <Screen name="SchedulingComplete" component={SchedulingComplete} />
+      <Screen name="Confirmation" component={Confirmation} />
       <Screen name="MyCars" component={MyCars} />
       <Screen name="SignUpFirstStep" component={SignUpFirstStep} />
       <Screen name="SignUpSecondStep" component={SignUpSecondStep} />
