@@ -10,6 +10,8 @@ import { SchedulingComplete } from "../screens/SchedulingComplete";
 import { MyCars } from "../screens/MyCars";
 import { Splash } from "../screens/Splash";
 import { SignIn } from "../screens/SignIn";
+import { SignUpFirstStep } from "../screens/SignUp/SignUpFirstStep";
+import { SignUpSecondStep } from "../screens/SignUp/SignUpSecondStep";
 
 import { CarDTO } from "../dtos/CarDTO";
 
@@ -22,6 +24,8 @@ export type RootStackParamList = {
   MyCars: undefined;
   Splash: undefined;
   SignIn: undefined;
+  SignUpFirstStep: undefined;
+  SignUpSecondStep: undefined;
 };
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
@@ -48,6 +52,8 @@ export function StackRoutes() {
       <Screen name="SchedulingDetails" component={SchedulingDetails} />
       <Screen name="SchedulingComplete" component={SchedulingComplete} />
       <Screen name="MyCars" component={MyCars} />
+      <Screen name="SignUpFirstStep" component={SignUpFirstStep} />
+      <Screen name="SignUpSecondStep" component={SignUpSecondStep} />
     </Navigator>
   );
 }
