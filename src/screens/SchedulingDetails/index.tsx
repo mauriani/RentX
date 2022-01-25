@@ -65,7 +65,7 @@ export function SchedulingDetails() {
   const route = useRoute();
 
   const { car, dates } = route.params as Params;
-  const rentTotal = Number(Object.keys(dates).length * car.rent.price);
+  const rentTotal = Number(Object.keys(dates).length * car.price);
 
   async function handleConfirmRental() {
     try {
@@ -140,8 +140,8 @@ export function SchedulingDetails() {
           </Description>
 
           <Rent>
-            <Period>{car.rent.period}</Period>
-            <Price>R$ {car.rent.price}</Price>
+            <Period>{car.period}</Period>
+            <Price>R$ {car.price}</Price>
           </Rent>
         </Details>
 
@@ -185,7 +185,7 @@ export function SchedulingDetails() {
           <RentalPriceLabel>TOTAL</RentalPriceLabel>
 
           <RentalPriceDetails>
-            <RentalPriceQuota>{`R$ ${car.rent.price} x${
+            <RentalPriceQuota>{`R$ ${car.price} x${
               Object.keys(dates).length
             } diárias`}</RentalPriceQuota>
             <RentalPriceTotal>R$ {rentTotal}</RentalPriceTotal>
