@@ -7,11 +7,11 @@ import {
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-import { Confirmation } from "../../Confirmation";
 import { Bullet } from "../../../components/Bullet";
 import { PasswordInput } from "../../../components/PasswordInput";
 import { Button } from "../../../components/Button";
 import { BackButton } from "../../../components/BackButton";
+import api from "../../../services/api";
 
 import {
   Container,
@@ -45,7 +45,7 @@ export function SignUpSecondStep() {
     navigation.goBack();
   }
 
-  function handleRegister() {
+  async function handleRegister() {
     if (!password || !passwordConfirm) {
       return Alert.alert("Informe a senha e confirme");
     }
@@ -54,13 +54,23 @@ export function SignUpSecondStep() {
       return Alert.alert("As senhas não são iguais");
     }
 
-    // Enviar para API E CADASTRAR.
-
-    navigation.navigate("Confirmation", {
-      title: "Conta criada!",
-      message: `Agora é só fazer login\ne aproveitar.`,
-      nextScreenRoute: "SignIn",
-    });
+    await api
+      .post("/users", {
+        name: user.name,
+        email: user.email,
+        driver_license: user.driverLicense,
+        password,
+      })
+      .then(() => {
+        navigation.navigate("Confirmation", {
+          title: "Conta criada!",
+          message: `Agora é só fazer login\ne aproveitar.`,
+          nextScreenRoute: "SignIn",
+        });
+      })
+      .catch((error) => {
+        Alert.alert("Opa", "Não foi possível cadastrar ");
+      });
   }
   return (
     <KeyboardAvoidingView behavior="position" enabled>
