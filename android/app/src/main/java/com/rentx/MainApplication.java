@@ -7,35 +7,24 @@ import androidx.annotation.NonNull;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.nozbe.watermelondb.WatermelonDBPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.rentx.generated.BasePackageList;
-
 
 import expo.modules.ApplicationLifecycleDispatcher;
 import expo.modules.ReactNativeHostWrapper;
-import expo.modules.constants.ConstantsPackage;
-import expo.modules.permissions.PermissionsPackage;
-import expo.modules.filesystem.FileSystemPackage;
-import expo.modules.updates.UpdatesController;
 
 import com.facebook.react.bridge.JSIModulePackage;
-import com.swmansion.reanimated.ReanimatedJSIModulePackage;
 
 import java.lang.reflect.InvocationTargetException;
-
 import java.util.List;
 
-
 public class MainApplication extends Application implements ReactApplication {
- 
-
-   private final ReactNativeHost mReactNativeHost = new ReactNativeHostWrapper(
+  private final ReactNativeHost mReactNativeHost = new ReactNativeHostWrapper(
     this,
-    new ReactNativeHost(this)  {
+    new ReactNativeHost(this) {
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
@@ -45,7 +34,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       @SuppressWarnings("UnnecessaryLocalVariable")
       List<ReactPackage> packages = new PackageList(this).getPackages();
-      packages.add(new MyReactNativePackage());
+      // Packages that cannot be autolinked yet can be added manually here, for example:
+      // packages.add(new MyReactNativePackage());
       return packages;
     }
 
@@ -53,13 +43,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected String getJSMainModuleName() {
       return "index";
     }
+  });
 
-    @Override
-    protected JSIModulePackage getJSIModulePackage() {
-      return new ReanimatedJSIModulePackage();
-    }
-
-});
   @Override
   public ReactNativeHost getReactNativeHost() {
     return mReactNativeHost;
