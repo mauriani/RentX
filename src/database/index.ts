@@ -11,5 +11,4 @@ const adapter = new SQLiteAdapter({
 export const database = new Database({
   adapter, // meu adaptador de conexão
   modelClasses: [User], // o meu modelo
-  actionsEnabled: true, // permite que o mesmo seja alterado
 });
