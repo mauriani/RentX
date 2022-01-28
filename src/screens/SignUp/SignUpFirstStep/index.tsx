@@ -6,6 +6,10 @@ import {
   Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../../routes/auth.routes";
+
 import * as Yup from "yup";
 
 import { Bullet } from "../../../components/Bullet";
@@ -24,7 +28,12 @@ import {
 } from "./styles";
 
 export function SignUpFirstStep() {
-  const navigation = useNavigation();
+  type SignUpFirstStepProp = NativeStackNavigationProp<
+    RootStackParamList,
+    "SignUpFirstStep"
+  >;
+
+  const navigation = useNavigation<SignUpFirstStepProp>();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -49,7 +58,9 @@ export function SignUpFirstStep() {
 
       await schema.validate(data);
 
-      navigation.navigate("SignUpSecondStep", { user: data });
+      navigation.navigate("SignUpSecondStep", {
+        user: data,
+      });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         return Alert.alert("Opa", error.message);

@@ -11,7 +11,7 @@ import { Container, Content, Title, Message, Footer } from "./styles";
 interface Params {
   title: string;
   message: string;
-  nextScreenRoute: string;
+  nextScreenRoute: undefined;
 }
 
 export function Confirmation() {

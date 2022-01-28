@@ -13,9 +13,13 @@ import { Confirmation } from "../screens/Confirmation";
 export type RootStackParamList = {
   Splash: undefined;
   SignIn: undefined;
-  SignUpFirstStep: undefined;
-  SignUpSecondStep: { user: {} };
-  Confirmation: { title: string; message: string; nextScreenRoute: string };
+  SignUpFirstStep: {
+    user: { name: string; email: string; driverLicense: string };
+  };
+  SignUpSecondStep: {
+    user: { name: string; email: string; driverLicense: string };
+  };
+  Confirmation: undefined;
 };
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
