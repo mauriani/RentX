@@ -5,7 +5,6 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
-  TouchableOpacity,
 } from "react-native";
 import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
@@ -32,7 +31,6 @@ export function SignIn() {
   const { signIn } = useAuth();
 
   async function handleSignIn() {
-    console.log("handleSignIn");
     try {
       const schema = Yup.object().shape({
         password: Yup.string().required("A senha é obrigatória"),
@@ -98,16 +96,9 @@ export function SignIn() {
           </Form>
 
           <Footer>
-            <TouchableOpacity
-              onPress={handleSignIn}
-              style={{ backgroundColor: theme.colors.background_secondary }}
-            >
-              <SubTitle>teste</SubTitle>
-            </TouchableOpacity>
-
             <Button
               title="Login"
-              onPress={handleSignIn}
+              onPress={() => handleSignIn()}
               enabled={true}
               loading={false}
             />

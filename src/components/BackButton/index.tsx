@@ -8,12 +8,13 @@ import { Container } from "./styles";
 
 interface Props extends BorderlessButtonProps {
   color?: string;
+  onPress: () => void;
 }
 
-export function BackButton({ color, ...rest }: Props) {
+export function BackButton({ onPress, color, ...rest }: Props) {
   const theme = useTheme();
   return (
-    <Container {...rest}>
+    <Container {...rest} onPress={onPress}>
       <MaterialCommunityIcons
         name="chevron-left"
         size={24}

@@ -1,12 +1,6 @@
 import "react-native-gesture-handler";
 import { registerRootComponent } from "expo";
 
-import { LogBox } from "react-native";
-
-LogBox.ignoreLogs([
-  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
-]);
-
 import App from "./App";
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);

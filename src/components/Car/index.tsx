@@ -1,4 +1,5 @@
 import React from "react";
+import { TouchableWithoutFeedback } from "react-native";
 import { RectButtonProps } from "react-native-gesture-handler";
 import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
 
@@ -19,12 +20,13 @@ import {
 
 interface Props extends RectButtonProps {
   data: CarDTO;
+  onPress: () => void;
 }
 
-export function Car({ data, ...rest }: Props) {
+export function Car({ onPress, data, ...rest }: Props) {
   const Motorcon = getAccessoryIcon(data.fuel_type);
   return (
-    <Container {...rest}>
+    <Container {...rest} onPress={onPress}>
       <Details>
         <Brand>{data.brand}</Brand>
         <Name>{data.name}</Name>

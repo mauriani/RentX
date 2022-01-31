@@ -8,6 +8,7 @@ import { Scheduling } from "../screens/Scheduling";
 import { SchedulingDetails } from "../screens/SchedulingDetails";
 import { Confirmation } from "../screens/Confirmation";
 import { MyCars } from "../screens/MyCars";
+import { Profile } from "../screens/Profile";
 
 import { CarDTO } from "../dtos/CarDTO";
 
@@ -20,6 +21,7 @@ export type RootStackParamList = {
   SchedulingDetails: { car: CarDTO; dates: Object[] };
   Confirmation: { title: string; message: string; nextScreenRoute: string };
   MyCars: undefined;
+  Profile: undefined;
 };
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
@@ -38,6 +40,7 @@ export function AppStackRoutes() {
       <Screen name="SchedulingDetails" component={SchedulingDetails} />
       <Screen name="Confirmation" component={Confirmation} />
       <Screen name="MyCars" component={MyCars} />
+      <Screen name="Profile" component={Profile} />
     </Navigator>
   );
 }

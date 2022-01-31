@@ -43,7 +43,6 @@ function AuthProvider({ children }: AuthProviderProps) {
   const [data, setData] = useState<User>({} as User);
 
   async function signIn({ email, password }: SignInCredentials) {
-    console.log("entrei ?");
     try {
       const response = await api.post("/sessions", {
         email,
