@@ -31,6 +31,7 @@ export function SignIn() {
   const { signIn } = useAuth();
 
   async function handleSignIn() {
+    
     try {
       const schema = Yup.object().shape({
         password: Yup.string().required("A senha é obrigatória"),
