@@ -50,13 +50,17 @@ export function Profile() {
   }
 
   function handleSignOut() {
-    Alert.alert("Sair", "Deseja sair do nosso app ?", [
-      {
-        text: "Não",
-        onPress: () => console.log("Cancel Pressed"),
-      },
-      { text: "Sim", onPress: () => signOut },
-    ]);
+    Alert.alert(
+      "Tem certeza?",
+      "Se você sair, irá precisar de internet para conectar-se novamente.",
+      [
+        {
+          text: "Não",
+          onPress: () => console.log("Cancel Pressed"),
+        },
+        { text: "Sim", onPress: () => signOut() },
+      ]
+    );
   }
 
   function handleOptionChange(optionSelected: "dataEdit" | "passwordEdit") {
@@ -117,7 +121,7 @@ export function Profile() {
             <HeaderTop>
               <BackButton color={theme.colors.shape} onPress={handleBack} />
               <HeaderTitle>Editar Perfil</HeaderTitle>
-              <LogoutButton onPress={signOut}>
+              <LogoutButton onPress={handleSignOut}>
                 <Feather name="power" size={24} color={theme.colors.shape} />
               </LogoutButton>
             </HeaderTop>

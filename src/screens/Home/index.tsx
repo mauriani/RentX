@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { StatusBar } from "react-native";
+import { StatusBar, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 import Logo from "../../assets/logo.svg";
 import { CarDTO } from "../../dtos/CarDTO";
@@ -19,6 +20,7 @@ import {
 
 export function Home() {
   const navigation = useNavigation();
+  const netInfo = useNetInfo();
 
   const [loading, setLoading] = useState(true);
 
@@ -53,6 +55,14 @@ export function Home() {
       isMounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (netInfo.isConnected) {
+      Alert.alert("Você está On-line");
+    } else {
+      Alert.alert("Você está Off-line");
+    }
+  }, [netInfo.isConnected]);
 
   return (
     <Container>

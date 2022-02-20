@@ -31,7 +31,6 @@ export function SignIn() {
   const { signIn } = useAuth();
 
   async function handleSignIn() {
-    
     try {
       const schema = Yup.object().shape({
         password: Yup.string().required("A senha é obrigatória"),
@@ -45,8 +44,10 @@ export function SignIn() {
       signIn({ email, password });
     } catch (error) {
       // capturar o error do Yup
+      // console.log("error", error);
       if (error instanceof Yup.ValidationError) {
         Alert.alert("Opa", error.message);
+        console.log(error.message);
       } else {
         Alert.alert(
           "Erro na autenticação",

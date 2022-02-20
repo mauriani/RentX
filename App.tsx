@@ -1,6 +1,6 @@
-import "react-native-gesture-handler";
 import React from "react";
 import AppLoading from "expo-app-loading";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ThemeProvider } from "styled-components";
 import {
   useFonts,

@@ -71,7 +71,8 @@ function AuthProvider({ children }: AuthProviderProps) {
 
       setData({ ...user, token });
     } catch (error) {
-      throw new Error(error);
+      //throw new Error(error);
+      console.log("throw");
     }
   }
 
