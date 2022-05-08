@@ -34,21 +34,22 @@ export function Home() {
       car,
     });
   }
+
   async function offlineSynchronize() {
     await synchronize({
       database,
       pullChanges: async ({ lastPulledAt }) => {
+        // lastPulledAt é uma data
+        // busca veiculos na rota de cars passando o timestemp
         const response = await api.get(
           `cars/sync/pull?lastPulledVersion=${lastPulledAt || 0}`
         );
-
         const { changes, latestVersion } = response.data;
-        console.log("### changes", changes);
         return { changes, timestamp: latestVersion };
       },
       pushChanges: async ({ changes }) => {
         const user = changes.users;
-        await api.post("/users/sync", user);
+        await api.post("/users/sync", user).catch(console.log);
       },
     });
   }
@@ -60,8 +61,6 @@ export function Home() {
         const carCollection = database.get<ModelCar>("cars");
 
         const cars = await carCollection.query().fetch();
-
-        console.log(cars);
 
         if (isMounted) {
           setCars(cars);
@@ -82,6 +81,12 @@ export function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    if (netInfo.isConnected === true) {
+      offlineSynchronize();
+    }
+  }, [netInfo.isConnected]);
+
   return (
     <Container>
       <StatusBar
@@ -98,7 +103,6 @@ export function Home() {
           ) : null}
         </HeaderContent>
       </Header>
-      <Button title="Sincronizar" onPress={() => offlineSynchronize()} />
 
       {loading ? (
         <LoadAnimation />

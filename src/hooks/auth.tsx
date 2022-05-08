@@ -31,6 +31,7 @@ interface AuthContextData {
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => Promise<void>;
   updatedUser: (user: User) => Promise<void>;
+  loading: boolean;
 }
 
 interface AuthProviderProps {
@@ -43,6 +44,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   // criar um estado para amarzenar os estados de autentificação
 
   const [data, setData] = useState<User>({} as User);
+  const [loading, setLoading] = useState(true);
 
   async function signIn({ email, password }: SignInCredentials) {
     try {
@@ -58,6 +60,8 @@ function AuthProvider({ children }: AuthProviderProps) {
 
       // Inserindo meu usupario no banco local;
       const userCollection = database.get<ModelUser>("users");
+
+      console.log(userCollection);
       await database.write(async () => {
         await userCollection.create((newUser) => {
           newUser.user_id = user.id;
@@ -72,7 +76,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       setData({ ...user, token });
     } catch (error) {
       //throw new Error(error);
-      console.log("throw");
+      console.log("throw", error);
     }
   }
 
@@ -120,6 +124,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         ] = `Bearer ${userData.token}`;
 
         setData(userData);
+        setLoading(false);
       }
     }
     loadUserData();
@@ -132,6 +137,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         signIn,
         signOut,
         updatedUser,
+        loading,
       }}
     >
       {children}

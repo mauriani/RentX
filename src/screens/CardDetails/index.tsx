@@ -81,6 +81,8 @@ export function CardDetails() {
     navigation.goBack();
   }
 
+  console.log(car.accessories);
+
   return (
     <Container>
       <StatusBar
@@ -101,7 +103,7 @@ export function CardDetails() {
 
         <Animated.View style={[sliderCarsStyleAnimation]}>
           <CardImages>
-            <ImagesSlider imagesUrl={car.photos} />
+            {car.photos != undefined && <ImagesSlider imagesUrl={car.photos} />}
           </CardImages>
         </Animated.View>
       </Animated.View>
@@ -128,13 +130,14 @@ export function CardDetails() {
         </Details>
 
         <Accessories>
-          {car.accessories.map((item) => (
-            <Accessory
-              key={item.name}
-              name={item.name}
-              icon={getAccessoryIcon(item.type)}
-            />
-          ))}
+          {car.accessories != undefined &&
+            car.accessories.map((item) => (
+              <Accessory
+                key={item.name}
+                name={item.name}
+                icon={getAccessoryIcon(item.type)}
+              />
+            ))}
         </Accessories>
 
         <About>
